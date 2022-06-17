@@ -11,7 +11,7 @@ import (
 
 	"git.kanosolution.net/kano/kaos"
 	"git.kanosolution.net/kano/kaos/client"
-	"github.com/eaciit/toolkit"
+	"github.com/sebarcode/codekit"
 )
 
 const (
@@ -38,7 +38,7 @@ func (h *HttpClient) Close() {
 	//panic("not implemented") // TODO: Implement
 }
 
-func (h *HttpClient) Call(name string, ref interface{}, data interface{}, configs ...toolkit.M) (interface{}, error) {
+func (h *HttpClient) Call(name string, ref interface{}, data interface{}, configs ...codekit.M) (interface{}, error) {
 	var e error
 	if ref == nil {
 		return nil, errors.New("reference object is missing")
@@ -64,7 +64,7 @@ func (h *HttpClient) Call(name string, ref interface{}, data interface{}, config
 	}
 }
 
-func (h *HttpClient) CallTo(name string, target interface{}, parm interface{}, configs ...toolkit.M) error {
+func (h *HttpClient) CallTo(name string, target interface{}, parm interface{}, configs ...codekit.M) error {
 	var e error
 	config := kaos.MergeMs(configs...)
 	callType := config.GetString(KeyMethod)
@@ -119,7 +119,7 @@ func init() {
 }
 
 // NewHttpClient call new client
-func NewHttpClient(host string, config toolkit.M) (client.Client, error) {
+func NewHttpClient(host string, config codekit.M) (client.Client, error) {
 	c := new(HttpClient)
 	protocols := strings.Split(host, "://")
 	hasProtocols := len(protocols) > 1
